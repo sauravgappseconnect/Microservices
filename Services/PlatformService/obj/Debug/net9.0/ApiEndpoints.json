@@ -1,0 +1,60 @@
+[
+  {
+    "ContainingType": "PlatformService.Controllers.PlatformController",
+    "Method": "CreatePlatform",
+    "RelativePath": "api/Platform",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "platformCreateModel",
+        "Type": "PlatformService.DTO.PlatformCreateModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PlatformService.Controllers.PlatformController",
+    "Method": "UpdatePlatform",
+    "RelativePath": "api/Platform",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "platformModel",
+        "Type": "PlatformService.DTO.PlatformModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PlatformService.Controllers.PlatformController",
+    "Method": "GetAllPlatforms",
+    "RelativePath": "api/Platform/GetAllPlatforms",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PlatformService.Controllers.PlatformController",
+    "Method": "GetById",
+    "RelativePath": "api/Platform/GetById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

@@ -1,10 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\saurav\\source\\Projects\\Microservices\\",
+  "WorkspaceRootPath": "D:\\repos\\MyFolder\\Projects\\Microservices\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6669362E-C0A7-4FEB-9C5C-A18D1F666438}|Services\\PlatformService\\PlatformService.csproj|c:\\users\\saurav\\source\\projects\\microservices\\services\\platformservice\\platformservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{6669362E-C0A7-4FEB-9C5C-A18D1F666438}|Services\\PlatformService\\PlatformService.csproj|solutionrelative:services\\platformservice\\platformservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|Solution Items{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|D:\\repos\\MyFolder\\Projects\\Microservices\\compose.yaml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|Solution Items{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|solutionrelative:compose.yaml||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,21 +14,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 16,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PlatformService",
-              "DocumentMoniker": "C:\\Users\\saurav\\source\\Projects\\Microservices\\Services\\PlatformService\\PlatformService.csproj",
-              "RelativeDocumentMoniker": "Services\\PlatformService\\PlatformService.csproj",
-              "ToolTip": "C:\\Users\\saurav\\source\\Projects\\Microservices\\Services\\PlatformService\\PlatformService.csproj",
-              "RelativeToolTip": "Services\\PlatformService\\PlatformService.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-01-30T12:59:02.546Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
@@ -55,11 +42,23 @@
             },
             {
               "$type": "Bookmark",
+              "Name": "ST:0:0:{0849e941-4665-42e5-8dd0-e4c8da15dbd0}"
+            },
+            {
+              "$type": "Bookmark",
               "Name": "ST:135:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
               "$type": "Bookmark",
               "Name": "ST:133:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:9:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             },
             {
               "$type": "Bookmark",
@@ -72,6 +71,27 @@
             {
               "$type": "Bookmark",
               "Name": "ST:130:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "compose.yaml",
+              "DocumentMoniker": "D:\\repos\\MyFolder\\Projects\\Microservices\\compose.yaml",
+              "RelativeDocumentMoniker": "compose.yaml",
+              "ToolTip": "D:\\repos\\MyFolder\\Projects\\Microservices\\compose.yaml",
+              "RelativeToolTip": "compose.yaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
+              "WhenOpened": "2026-01-30T17:15:58.243Z",
+              "EditorCaption": ""
             }
           ]
         }

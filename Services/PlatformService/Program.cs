@@ -28,12 +28,15 @@ public class Program
             app.MapOpenApi();
         }
 
-        app.UseHttpsRedirection();
+        if (!app.Environment.IsDevelopment())
+            app.UseHttpsRedirection();
 
-        app.UseAuthorization();
+        //app.UseAuthorization();
 
 
         app.MapControllers();
+
+        app.Services.Initialiser().GetAwaiter().GetResult();
 
         app.Run();
     }

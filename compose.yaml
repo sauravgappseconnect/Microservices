@@ -1,0 +1,32 @@
+version: "2.15"
+
+services:
+  sql2:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sql2
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=@Bcd.1234
+    ports:
+      - "5000:1433"
+    volumes:
+      - sql2-data:/var/opt/mssql
+
+  platformservice:
+    container_name: platformservice
+    build:
+      context: ./Services/PlatformService
+      dockerfile: Dockerfile
+    depends_on:
+      - sql2
+    ports:
+      - "5001:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__db=Server=sql2,1433;Database=platformservice;User Id=sa;Password=@Bcd.1234;TrustServerCertificate=True
+
+volumes:
+  sql2-data:
+  
+

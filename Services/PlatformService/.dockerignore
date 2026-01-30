@@ -1,0 +1,44 @@
+# Ignore common version control directories and files
+.git
+.gitignore
+.svn
+.hg
+
+# Ignore node_modules directory, commonly found in Node.js projects
+node_modules/
+
+# Ignore log files and temporary files
+*.log
+tmp/
+temp/
+
+# Ignore development-specific files
+.env
+Dockerfile.dev
+docker-compose.yml
+
+# Ignore documentation files if they are not needed in the image
+docs/
+*.md
+
+# Ignore build artifacts or cache directories
+build/
+dist/
+.cache/
+
+# Exclude all files, but re-include specific ones (order matters)
+# This pattern first excludes everything, then selectively includes necessary files.
+# Use with caution, as it can be tricky to manage.
+# For example, to include only 'src' directory and 'package.json':
+# **
+# !src/
+# !src/**/*
+# !package.json
+
+**/bin/
+**/obj/
+**/.vs/
+**/.idea/
+**/*.user
+**/*.suo
+**/*.cache
