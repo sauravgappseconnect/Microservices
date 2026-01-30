@@ -2,5 +2,141 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs
+############################
+# .NET / Visual Studio
+############################
 
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.VC.db
+*.VC.VC.opendb
+
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# MonoDevelop
+*.userprefs
+
+############################
+# .NET Core / ASP.NET Core
+############################
+
+# Published output
+**/publish/
+**/Publish/
+**/wwwroot/lib/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# User secrets (do not commit)
+secrets.json
+**/secrets.json
+
+# Local app settings
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.Local.json
+
+# Certificates
+*.pfx
+*.p12
+*.pem
+*.key
+*.crt
+*.cer
+
+############################
+# NuGet
+############################
+
+# NuGet packages (optional: keep packages out of repo)
+*.nupkg
+*.snupkg
+# packages/
+# **/packages/
+
+# NuGet cache files
+*.nuget.props
+*.nuget.targets
+
+############################
+# Test Results
+############################
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+############################
+# OS files
+############################
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+############################
+# Logs
+############################
+*.log
+
+############################
+# Docker
+############################
+docker-compose.override.yml
+.env
+.env.*
+!.env.example
+
+############################
+# Entity Framework
+############################
+*.db
+*.db-shm
+*.db-wal
+
+############################
+# ReSharper
+############################
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+############################
+# Node (if frontend exists)
+############################
+node_modules/
+dist/
+build/
+.cache/
+.parcel-cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+############################
+# Others
+############################
+*.swp
+*.tmp
+*.bak
