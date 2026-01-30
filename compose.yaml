@@ -20,11 +20,26 @@ services:
     depends_on:
       - sql2
     ports:
-      - "5001:8080"
+      - "5136:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__db=Server=sql2,1433;Database=platformservice;User Id=sa;Password=@Bcd.1234;TrustServerCertificate=True
+
+  commandservice:
+    container_name: commandservice
+    build:
+      context: ./Services/CommandService
+      dockerfile: Dockerfile
+    depends_on:
+      - sql2
+      - platformservice
+    ports:
+      - "5279:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__db=Server=sql2,1433;Database=commandservice;User Id=sa;Password=@Bcd.1234;TrustServerCertificate=True
 
 volumes:
   sql2-data:
