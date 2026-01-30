@@ -32,3 +32,4 @@ C:\Users\saurav\source\Projects\Microservices\services\CommandService\obj\Debug\
 C:\Users\saurav\source\Projects\Microservices\services\CommandService\obj\Debug\net9.0\CommandService.pdb
 C:\Users\saurav\source\Projects\Microservices\services\CommandService\obj\Debug\net9.0\CommandService.genruntimeconfig.cache
 C:\Users\saurav\source\Projects\Microservices\services\CommandService\obj\Debug\net9.0\ref\CommandService.dll
+C:\Users\saurav\source\Projects\Microservices\Services\CommandService\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

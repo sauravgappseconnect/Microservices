@@ -32,3 +32,4 @@ C:\Users\saurav\source\Projects\Microservices\services\PlatformService\obj\Debug
 C:\Users\saurav\source\Projects\Microservices\services\PlatformService\obj\Debug\net9.0\PlatformService.pdb
 C:\Users\saurav\source\Projects\Microservices\services\PlatformService\obj\Debug\net9.0\PlatformService.genruntimeconfig.cache
 C:\Users\saurav\source\Projects\Microservices\services\PlatformService\obj\Debug\net9.0\ref\PlatformService.dll
+C:\Users\saurav\source\Projects\Microservices\Services\PlatformService\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\saurav\\source\\Projects\\Microservices\\services\\CommandService\\CommandService.csproj": {}
+    "C:\\Users\\saurav\\source\\Projects\\Microservices\\Services\\CommandService\\CommandService.csproj": {}
   },
   "projects": {
-    "C:\\Users\\saurav\\source\\Projects\\Microservices\\services\\CommandService\\CommandService.csproj": {
+    "C:\\Users\\saurav\\source\\Projects\\Microservices\\Services\\CommandService\\CommandService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\saurav\\source\\Projects\\Microservices\\services\\CommandService\\CommandService.csproj",
+        "projectUniqueName": "C:\\Users\\saurav\\source\\Projects\\Microservices\\Services\\CommandService\\CommandService.csproj",
         "projectName": "CommandService",
-        "projectPath": "C:\\Users\\saurav\\source\\Projects\\Microservices\\services\\CommandService\\CommandService.csproj",
+        "projectPath": "C:\\Users\\saurav\\source\\Projects\\Microservices\\Services\\CommandService\\CommandService.csproj",
         "packagesPath": "C:\\Users\\saurav\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\saurav\\source\\Projects\\Microservices\\services\\CommandService\\obj\\",
+        "outputPath": "C:\\Users\\saurav\\source\\Projects\\Microservices\\Services\\CommandService\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
