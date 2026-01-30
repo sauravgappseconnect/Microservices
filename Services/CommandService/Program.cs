@@ -1,4 +1,7 @@
 
+using CommandService.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace CommandService;
 
 public class Program
@@ -12,6 +15,10 @@ public class Program
         builder.Services.AddControllers();
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
+        builder.Services.AddDbContext<CommandServiceContext>(options =>
+        {
+            options.UseSqlServer(builder.Configuration.GetConnectionString("db"));
+        });
 
         var app = builder.Build();
 
@@ -28,6 +35,8 @@ public class Program
 
 
         app.MapControllers();
+
+        app.Services.Initialiser().GetAwaiter().GetResult();
 
         app.Run();
     }

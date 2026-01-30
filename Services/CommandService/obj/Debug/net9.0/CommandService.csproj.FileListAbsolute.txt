@@ -242,10 +242,10 @@ D:\repos\MyFolder\Projects\Microservices\Services\CommandService\obj\Debug\net9.
 D:\repos\MyFolder\Projects\Microservices\Services\CommandService\obj\Debug\net9.0\staticwebassets.build.json.cache
 D:\repos\MyFolder\Projects\Microservices\Services\CommandService\obj\Debug\net9.0\staticwebassets.development.json
 D:\repos\MyFolder\Projects\Microservices\Services\CommandService\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-D:\repos\MyFolder\Projects\Microservices\Services\CommandService\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 D:\repos\MyFolder\Projects\Microservices\Services\CommandService\obj\Debug\net9.0\CommandS.7DAE046B.Up2Date
 D:\repos\MyFolder\Projects\Microservices\Services\CommandService\obj\Debug\net9.0\CommandService.dll
 D:\repos\MyFolder\Projects\Microservices\Services\CommandService\obj\Debug\net9.0\refint\CommandService.dll
 D:\repos\MyFolder\Projects\Microservices\Services\CommandService\obj\Debug\net9.0\CommandService.pdb
 D:\repos\MyFolder\Projects\Microservices\Services\CommandService\obj\Debug\net9.0\CommandService.genruntimeconfig.cache
 D:\repos\MyFolder\Projects\Microservices\Services\CommandService\obj\Debug\net9.0\ref\CommandService.dll
+D:\repos\MyFolder\Projects\Microservices\Services\CommandService\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
