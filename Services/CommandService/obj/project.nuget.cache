@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QQ/E7sun4AY=",
+  "dgSpecHash": "wSOsIhbJJsI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\saurav\\source\\Projects\\Microservices\\CommandService\\CommandService.csproj",
+  "projectFilePath": "C:\\Users\\saurav\\source\\Projects\\Microservices\\services\\CommandService\\CommandService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\saurav\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.2\\microsoft.aspnetcore.openapi.9.0.2.nupkg.sha512",
     "C:\\Users\\saurav\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
