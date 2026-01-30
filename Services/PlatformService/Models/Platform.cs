@@ -2,10 +2,8 @@
 
 namespace PlatformService.Models
 {
-    public class Platform
+    public class Platform : Base
     {
-        public Guid Id { get; set; }
-
         public required string Name { get; set; }
 
         public required string Publisher { get; set; }
