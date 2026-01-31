@@ -190,3 +190,5 @@ pnpm-debug.log*
 /.vs/Microservices/v17/.suo
 /.vs/Microservices/v17/DocumentLayout.backup.json
 /.vs/Microservices/v17/DocumentLayout.json
+/.vs/Microservices/DesignTimeBuild/.dtbcache.v2
+/.vs/Microservices/v17/.futdcache.v2
