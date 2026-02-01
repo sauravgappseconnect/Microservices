@@ -1,5 +1,8 @@
 
 using CommandService.Data;
+using CommandService.HostedServices;
+using CommandService.Services;
+using Microservices.Common.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace CommandService;
@@ -19,6 +22,8 @@ public class Program
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("db"));
         });
+        builder.Services.AddHostedService<MessageProcessor>();
+        builder.Services.AddSingleton<IMessageReceiver, ServiceBusMessageReceiver>();
 
         var app = builder.Build();
 
