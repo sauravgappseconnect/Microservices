@@ -1,6 +1,8 @@
 
+using Microservices.Common.Services;
 using Microsoft.EntityFrameworkCore;
 using PlatformService.Data;
+using PlatformService.Services;
 
 namespace PlatformService;
 
@@ -19,6 +21,7 @@ public class Program
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("db"));
         });
+        builder.Services.AddSingleton<IMessageSender, ServiceBusMessageSender>();
 
         var app = builder.Build();
 
