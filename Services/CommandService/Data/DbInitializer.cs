@@ -6,6 +6,7 @@ namespace CommandService.Data
     {
         public static async Task Initialiser(this IServiceProvider serviceProvider) {
             using (var scope = serviceProvider.CreateScope()) {
+                await Task.Delay(5000); // Wait for the database server to be ready
                 var db = scope.ServiceProvider.GetService<CommandServiceContext>();
                 await db!.Database.MigrateAsync();
             }
