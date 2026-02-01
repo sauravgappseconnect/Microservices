@@ -222,3 +222,4 @@ pnpm-debug.log*
 /Services/CommandService/obj/CommandService.csproj.nuget.g.targets
 /Services/CommandService/obj/project.assets.json
 /Services/CommandService/obj/project.nuget.cache
+/Services/CommandService/obj/CommandService.csproj.nuget.g.props

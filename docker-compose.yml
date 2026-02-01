@@ -1,0 +1,32 @@
+services:
+  sql2:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sql2
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=@Bcd.1234
+    ports:
+      - "5000:1433"
+    volumes:
+      - sql2-data:/var/opt/mssql
+
+  commandservice:
+    image: commandservice
+    build:
+      context: .
+      dockerfile: Services/CommandService/Dockerfile
+    depends_on:
+      - sql2
+      - platformservice
+
+  platformservice:
+    image: platformservice
+    build:
+      context: .
+      dockerfile: Services/PlatformService/Dockerfile
+    depends_on:
+      - sql2
+
+volumes:
+  sql2-data:
+
