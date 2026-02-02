@@ -22,6 +22,18 @@ public class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("db"));
         });
         builder.Services.AddSingleton<IMessageSender, ServiceBusMessageSender>();
+        builder.Services.AddCors(options => {
+            var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+            if (allowedOrigins != null && allowedOrigins.Any())
+            {
+                options.AddDefaultPolicy(policy => {
+                    policy.WithOrigins(allowedOrigins)
+                        .AllowCredentials()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
+            }
+        });
 
         var app = builder.Build();
 
@@ -34,8 +46,9 @@ public class Program
         if (!app.Environment.IsDevelopment())
             app.UseHttpsRedirection();
 
-        //app.UseAuthorization();
+        app.UseCors();
 
+        //app.UseAuthorization();
 
         app.MapControllers();
 
