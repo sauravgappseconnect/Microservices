@@ -223,3 +223,9 @@ pnpm-debug.log*
 /Services/CommandService/obj/project.assets.json
 /Services/CommandService/obj/project.nuget.cache
 /Services/CommandService/obj/CommandService.csproj.nuget.g.props
+/Services/PlatformService/obj/Debug/net9.0/PlatformService.GeneratedMSBuildEditorConfig.editorconfig
+/Services/PlatformService/obj/PlatformService.csproj.nuget.g.props
+/.vs/Microservices/CopilotIndices/17.12.68.61481/CodeChunks.db
+/.vs/Microservices/CopilotIndices/17.12.68.61481/SemanticSymbols.db-shm
+/.vs/Microservices/CopilotIndices/17.12.68.61481/SemanticSymbols.db-wal
+/Services/CommandService/obj/Debug/net9.0/CommandService.GeneratedMSBuildEditorConfig.editorconfig
