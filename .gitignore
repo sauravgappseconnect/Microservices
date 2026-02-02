@@ -102,7 +102,6 @@ Desktop.ini
 ############################
 # Docker
 ############################
-docker-compose.override.yml
 .env
 .env.*
 !.env.example
@@ -229,3 +228,11 @@ pnpm-debug.log*
 /.vs/Microservices/CopilotIndices/17.12.68.61481/SemanticSymbols.db-shm
 /.vs/Microservices/CopilotIndices/17.12.68.61481/SemanticSymbols.db-wal
 /Services/CommandService/obj/Debug/net9.0/CommandService.GeneratedMSBuildEditorConfig.editorconfig
+/Services/CommandService/bin/Debug/net9.0/CommandService.staticwebassets.endpoints.json
+/Services/CommandService/obj/Debug/net9.0/CommandService.genruntimeconfig.cache
+/Services/CommandService/obj/Debug/net9.0/staticwebassets.build.endpoints.json
+/Services/CommandService/obj/Debug/net9.0/staticwebassets.build.json
+/Services/PlatformService/bin/Debug/net9.0/PlatformService.staticwebassets.endpoints.json
+/Services/PlatformService/obj/Debug/net9.0/PlatformService.genruntimeconfig.cache
+/Services/PlatformService/obj/Debug/net9.0/staticwebassets.build.endpoints.json
+/Services/PlatformService/obj/Debug/net9.0/staticwebassets.build.json
