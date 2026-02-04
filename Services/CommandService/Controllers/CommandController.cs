@@ -27,7 +27,10 @@ namespace CommandService.Controllers
                     Id = e.Id,
                     HowTo = e.HowTo,
                     CommandLine = e.CommandLine,
-                    PlatformName = e.Platform!.Name
+                    PlatformName = e.Platform!.Name,
+                    CreatedBy = e.CreatedBy,
+                    UpdatedAt = e.UpdatedAt,
+                    CreatedAt = e.CreatedAt,
                 })
                 .ToListAsync(cancellationToken);
             return Ok(commands);
@@ -77,7 +80,10 @@ namespace CommandService.Controllers
                 Id = command.Id,
                 HowTo = command.HowTo,
                 CommandLine = command.CommandLine,
-                PlatformName = platform.Name
+                PlatformName = platform.Name,
+                CreatedAt = command.CreatedAt,
+                UpdatedAt = command.UpdatedAt,
+                CreatedBy = command.CreatedBy
             };
             return Ok(commandModel);
         }

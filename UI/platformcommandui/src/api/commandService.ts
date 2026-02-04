@@ -1,5 +1,5 @@
 import axios from 'axios';
-import  { type PlatformResponseSchema } from "../types/commandService";
+import { type CommandResponseSchema, type PlatformResponseSchema } from "../types/commandService";
 
 const commandServiceUrl = import.meta.env.VITE_COMMAND_SERVICE_URL;
 
@@ -13,4 +13,9 @@ const getCommandServicePlatforms = async function () {
     return result.data;
 }
 
-export { getCommandServicePlatforms };
+const getCommandServiceCommands = async function () {
+    const result = await requestInstance.get<CommandResponseSchema[]>('/command/GetAllCommands');
+    return result.data;
+}
+
+export { getCommandServicePlatforms, getCommandServiceCommands };

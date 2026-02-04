@@ -1,29 +1,28 @@
 
-import { useEffect, useState } from "react";
-import { getCommandServicePlatforms } from "../api/commandService";
-import { getPlatformServicePlatforms } from "../api/platformService";
-import { type PlatformResponseSchema } from "../types/commandService";
-import { Container } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import PlatformList from "../features/Dashboard/PlatformList";
 import CommandPlatformList from "../features/Dashboard/CommandPlatformList";
+import Navbar from "./Navbar";
 
 function App() {
-    const [commandPlatforms, setCommandPlatforms] = useState<PlatformResponseSchema[]>([]);
-
-    useEffect(() => {
-        getCommandServicePlatforms()
-            .then(data => {
-                setCommandPlatforms(data);
-            });
-    }, []);
-
-    if (!commandPlatforms) return <>Loading...</>
 
     return (
-        <Container fixed>
-            <PlatformList />
-            <CommandPlatformList />
-        </Container>
+        <>
+            <Navbar />
+            <Container maxWidth={false} disableGutters sx={{ mt: 3, px: 2 }}>
+                <Grid container spacing={2}>
+                    <Grid size={6}>
+                        <Typography variant="h4">Platforms</Typography>
+                        <PlatformList />
+                    </Grid>
+                    <Grid size={6}>
+                        <Typography variant="h4">Commands</Typography>
+                        <CommandPlatformList />
+                    </Grid>
+                </Grid>
+            </Container>
+        </>
+
     )
 }
 
