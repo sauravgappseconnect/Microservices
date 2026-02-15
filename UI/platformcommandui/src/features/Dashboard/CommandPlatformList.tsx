@@ -19,8 +19,9 @@ export default function CommandPlatformList() {
 
     return (
         <>
+            <Button variant="contained" sx={{marginBottom:1}}>Create new command</Button>
             {commands.map(p =>
-                <Card sx={{ minWidth: 275, marginBottom:2 }} key={p.id}>
+                <Card sx={{ minWidth: 275, marginBottom: 2 }} key={p.id}>
                     <CardContent>
                         <Typography variant="h5" component="div">
                             {p.commandLine}
