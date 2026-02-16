@@ -4,6 +4,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__db=Server=sql2,1433;Database=commandservice;User Id=sa;Password=@Bcd.1234;TrustServerCertificate=True
+      - AllowedOrigins=http://localhost:3000
       - ServiceBus__QueueName=PlatformEvent
     ports:
       - "5279:8080"
@@ -16,6 +17,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__db=Server=sql2,1433;Database=platformservice;User Id=sa;Password=@Bcd.1234;TrustServerCertificate=True
+      - AllowedOrigins=http://localhost:3000
       - ServiceBus__QueueName=PlatformEvent 
     ports:
       - "5136:8080"
