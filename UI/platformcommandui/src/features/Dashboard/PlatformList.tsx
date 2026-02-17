@@ -10,11 +10,13 @@ export default function PlatformList() {
 
   const [platforms, setPlatforms] = useState<PlatformResponseSchema[]>([]);
   const [platformDetails, setShowPlatformDetails] = useState<PlatformResponseSchema | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getPlatformServicePlatforms()
       .then(data => {
         setPlatforms(data);
+        setLoading(false);
       })
   }, []);
 
@@ -22,7 +24,9 @@ export default function PlatformList() {
     setShowPlatformDetails(value);
   }
 
-  if (platforms.length === 0) return <>Loading...</>;
+  if (loading) return <>Loading..</>;
+
+  if (platforms.length === 0) return <>Not data found</>;
 
   return (
     <>

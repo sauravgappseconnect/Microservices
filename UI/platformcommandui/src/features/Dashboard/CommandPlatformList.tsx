@@ -7,19 +7,23 @@ import { Button, Card, CardActions, CardContent, Typography } from "@mui/materia
 
 export default function CommandPlatformList() {
     const [commands, setCommands] = useState<CommandResponseSchema[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getCommandServiceCommands()
             .then(data => {
                 setCommands(data);
+                setLoading(false);
             })
     }, []);
 
-    if (commands.length === 0) return <>Loading..</>;
+    if (loading) return <>Loading..</>;
+
+    if (commands.length === 0) return <>Not data found</>;
 
     return (
         <>
-            <Button variant="contained" sx={{marginBottom:1}}>Create new command</Button>
+            <Button variant="contained" sx={{ marginBottom: 1 }}>Create new command</Button>
             {commands.map(p =>
                 <Card sx={{ minWidth: 275, marginBottom: 2 }} key={p.id}>
                     <CardContent>
