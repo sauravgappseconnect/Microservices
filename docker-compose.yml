@@ -1,4 +1,11 @@
 services:
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: jaeger
+    ports:
+        - "16686:16686"   # UI
+
   sql2:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sql2
@@ -42,6 +49,7 @@ services:
       dockerfile: Services/PlatformService/Dockerfile
     depends_on:
       - sql2
+      - otel-collector
     deploy:
         resources:
             limits:
@@ -69,6 +77,18 @@ services:
         reservations:
           cpus: '0.1'
           memory: 128M
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    container_name: otel-collector
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"   # OTLP gRPC
+      - "4318:4318"   # OTLP HTTP
+    depends_on:
+        - jaeger
 
 volumes:
   sql2-data:

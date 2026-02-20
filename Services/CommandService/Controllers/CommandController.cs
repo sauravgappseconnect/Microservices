@@ -11,10 +11,12 @@ namespace CommandService.Controllers
     public class CommandController : ControllerBase
     {
         private readonly CommandServiceContext _commandServiceContext;
+        private readonly ILogger<CommandController> _logger;
 
-        public CommandController(CommandServiceContext commandServiceContext)
+        public CommandController(CommandServiceContext commandServiceContext, ILogger<CommandController> logger)
         {
             this._commandServiceContext = commandServiceContext;
+            this._logger = logger;
         }
 
         [HttpGet(template: nameof(GetAllCommands))]
@@ -33,6 +35,7 @@ namespace CommandService.Controllers
                     CreatedAt = e.CreatedAt,
                 })
                 .ToListAsync(cancellationToken);
+            _logger.LogInformation("GetAllCommands operation done");
             return Ok(commands);
         }
 
@@ -54,6 +57,7 @@ namespace CommandService.Controllers
             {
                 return NotFound();
             }
+            _logger.LogInformation("GetCommandById found data");
             return Ok(command);
         }
 
@@ -64,6 +68,7 @@ namespace CommandService.Controllers
                 .FirstOrDefaultAsync(e => e.Id == commandCreateModel.PlatformId, cancellationToken);
             if (platform == null)
             {
+                _logger.LogInformation("Platform with id '{PlatformId}' does not exist.", commandCreateModel.PlatformId);
                 return BadRequest($"Platform with id '{commandCreateModel.PlatformId}' does not exist.");
             }
             var command = new Command
@@ -95,6 +100,7 @@ namespace CommandService.Controllers
                 .FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
             if (command == null)
             {
+                _logger.LogInformation("Command {id} was not found", id);
                 return NotFound();
             }
             _commandServiceContext.Commands.Remove(command);

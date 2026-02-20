@@ -1,6 +1,9 @@
 
 using Microservices.Common.Services;
 using Microsoft.EntityFrameworkCore;
+using OpenTelemetry.Exporter;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using PlatformService.Data;
 using PlatformService.Services;
 
@@ -22,11 +25,13 @@ public class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("db"));
         });
         builder.Services.AddSingleton<IMessageSender, ServiceBusMessageSender>();
-        builder.Services.AddCors(options => {
+        builder.Services.AddCors(options =>
+        {
             var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
             if (allowedOrigins != null && allowedOrigins.Any())
             {
-                options.AddDefaultPolicy(policy => {
+                options.AddDefaultPolicy(policy =>
+                {
                     policy.WithOrigins(allowedOrigins)
                         .AllowCredentials()
                           .AllowAnyMethod()
@@ -34,6 +39,29 @@ public class Program
                 });
             }
         });
+
+        var telemetryUrl = builder.Configuration.GetSection("TelemetryUrl").Value;
+        if(!string.IsNullOrWhiteSpace(telemetryUrl))
+        {
+            builder.Services.AddOpenTelemetry()
+                    .ConfigureResource(resource =>
+                    {
+                        resource.AddService("platformservice");
+                    })
+                    .WithTracing(tracing => tracing
+                .AddAspNetCoreInstrumentation()// Automatically create spans for incoming HTTP requests (ASP.NET Core middleware)
+                .AddHttpClientInstrumentation()         // Automatically create spans for outgoing HTTP calls (HttpClient)
+                .AddConsoleExporter()
+                .AddOtlpExporter(options =>        // Export spans to OpenTelemetry Collector
+                {
+                    options.Endpoint = new Uri(telemetryUrl);
+                    options.Protocol = OtlpExportProtocol.Grpc;
+                    // Endpoint of the collector inside Docker network
+                    // Using default protocol = gRPC
+                    // If needed, we could explicitly set:
+                    // options.Protocol = OtlpExportProtocol.Grpc;
+                }));
+        }
 
         var app = builder.Build();
 

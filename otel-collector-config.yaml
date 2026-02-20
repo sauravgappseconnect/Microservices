@@ -1,0 +1,28 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+    timeout: 5s    # Maximum time to wait before sending a batch
+    send_batch_size: 1024  # Number of spans per batch
+
+exporters:
+  debug:
+    verbosity: detailed
+
+  otlp:
+    endpoint: jaeger:4317       # Send spans TO Jaeger using OTLP
+    tls:
+      insecure: true            # Disable TLS inside Docker network
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug,otlp]
