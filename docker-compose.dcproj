@@ -12,6 +12,8 @@
     </None>
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
+    <None Include="loki-config.yaml" />
     <None Include="otel-collector-config.yaml" />
+    <None Include="prometheus.yml" />
   </ItemGroup>
 </Project>

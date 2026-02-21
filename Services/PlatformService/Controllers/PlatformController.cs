@@ -14,16 +14,20 @@ namespace PlatformService.Controllers
     {
         private readonly PlatformServiceContext _platformServiceContext;
         private readonly IMessageSender _messageSender;
+        private readonly ILogger<PlatformController> _logger;
 
-        public PlatformController(PlatformServiceContext platformServiceContext, IMessageSender messageSender)
+        public PlatformController(PlatformServiceContext platformServiceContext, IMessageSender messageSender, 
+            ILogger<PlatformController> logger)
         {
             this._platformServiceContext = platformServiceContext;
             this._messageSender = messageSender;
+            this._logger = logger;
         }
 
         [HttpGet(template: nameof(GetAllPlatforms))]
         public async Task<IActionResult> GetAllPlatforms(CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Fetching all platforms");
             var allPlatforms = await _platformServiceContext.Platforms.Select(e => new PlatformModel
             {
                 Name = e.Name,
@@ -38,6 +42,7 @@ namespace PlatformService.Controllers
         [HttpGet(template: nameof(GetById))]
         public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Fetching all platform by id {id}", id);
             var platform = await _platformServiceContext.Platforms
                 .Where(e => e.Id == id)
                 .Select(e => new PlatformModel
@@ -55,6 +60,7 @@ namespace PlatformService.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePlatform([FromBody] PlatformCreateModel platformCreateModel, CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Trying to create a platform");
             var platformEntity = new Models.Platform
             {
                 Name = platformCreateModel.Name,

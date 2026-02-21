@@ -20,9 +20,26 @@ exporters:
     tls:
       insecure: true            # Disable TLS inside Docker network
 
+  prometheus:
+    endpoint: "0.0.0.0:9464"   # Collector exposes metrics here
+
+  otlphttp/loki:
+    endpoint: http://loki:3100/otlp
+    tls:
+      insecure: true
+
 service:
   pipelines:
     traces:
       receivers: [otlp]
       processors: [batch]
       exporters: [debug,otlp]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug,otlphttp/loki]
+
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug, prometheus]

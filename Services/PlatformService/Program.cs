@@ -2,6 +2,8 @@
 using Microservices.Common.Services;
 using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Exporter;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using PlatformService.Data;
@@ -60,7 +62,30 @@ public class Program
                     // Using default protocol = gRPC
                     // If needed, we could explicitly set:
                     // options.Protocol = OtlpExportProtocol.Grpc;
-                }));
+                }))
+                    .WithMetrics(m => {
+                        m.AddAspNetCoreInstrumentation()
+                        .AddRuntimeInstrumentation()
+                        .AddProcessInstrumentation()
+                        .AddOtlpExporter(options =>
+                        {
+                            options.Endpoint = new Uri(telemetryUrl);
+                            options.Protocol = OtlpExportProtocol.Grpc;
+                        });
+                    });
+            builder.Logging.AddOpenTelemetry(options =>
+            {
+                options.IncludeFormattedMessage = true;
+                options.IncludeScopes = true;
+                options.ParseStateValues = true;
+                options.SetResourceBuilder(ResourceBuilder.CreateDefault()
+                    .AddService("platformservice"));
+                options.AddOtlpExporter(otlpOptions =>
+                {
+                    otlpOptions.Endpoint = new Uri(telemetryUrl);
+                    otlpOptions.Protocol = OtlpExportProtocol.Grpc;
+                });
+            });
         }
 
         var app = builder.Build();
