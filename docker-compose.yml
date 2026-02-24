@@ -1,19 +1,5 @@
 services:
 
-  jaeger:
-    image: jaegertracing/all-in-one:latest
-    container_name: jaeger
-    ports:
-        - "16686:16686"   # UI
-    deploy:
-        resources:
-            limits:
-                cpus: '1.0'
-                memory: 512M
-            reservations:
-                cpus: '0.5'
-                memory: 256M
-
   sql2:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sql2
@@ -28,7 +14,7 @@ services:
         resources:
             limits:
                 cpus: '1.0'
-                memory: 1024M
+                memory: 1512M
             reservations:
                 cpus: '0.5'
                 memory: 512M
@@ -96,8 +82,6 @@ services:
       - "4317:4317"   # OTLP gRPC
       - "4318:4318"   # OTLP HTTP
       - "9464:9464"   # expose Prometheus scrape endpoint
-    depends_on:
-        - jaeger
     deploy:
         resources:
             limits:
@@ -106,6 +90,24 @@ services:
             reservations:
                 cpus: '0.5'
                 memory: 256M
+
+  tempo:
+    image: grafana/tempo:2.5.0
+    container_name: tempo
+    command: ["-config.file=/etc/tempo.yaml"]
+    volumes:
+      - ./tempo.yaml:/etc/tempo.yaml
+      - tempo-data:/tmp/tempo
+    ports:
+      - "3200:3200"   # Tempo HTTP
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
 
   prometheus:
     image: prom/prometheus:latest
@@ -166,4 +168,5 @@ services:
 volumes:
   sql2-data:
   grafana-storage:
+  tempo-data:
 
