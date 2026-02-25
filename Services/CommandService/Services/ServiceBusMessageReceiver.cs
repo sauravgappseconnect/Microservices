@@ -54,10 +54,11 @@ namespace CommandService.Services
         {
             string body = args.Message.Body.ToString();
             var platform = JsonSerializer.Deserialize<PlatformMessageModel>(body);
+            this._logger.LogInformation("Platform information received at CommandService. Message : {}", body);
             if (platform != null)
             {
                 var existingPlatform = await _commandServiceContext.Platforms.FirstOrDefaultAsync(p => p.Id == platform.Id);
-                if(existingPlatform != null)
+                if (existingPlatform != null)
                 {
                     existingPlatform.Name = platform.Name;
                     existingPlatform.Publisher = platform.Publisher;
