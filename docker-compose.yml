@@ -21,6 +21,7 @@ services:
 
   commandservice:
     image: commandservice
+    container_name: commandservice
     build:
       context: .
       dockerfile: Services/CommandService/Dockerfile
@@ -38,6 +39,7 @@ services:
 
   platformservice:
     image: platformservice
+    container_name: platformservice
     build:
       context: .
       dockerfile: Services/PlatformService/Dockerfile
@@ -55,6 +57,7 @@ services:
 
   platformcommandui:
     image: platformcommandui
+    container_name: platformcommandui
     build:
       dockerfile: Dockerfile
       context: ./UI/platformcommandui
@@ -71,6 +74,24 @@ services:
         reservations:
           cpus: '0.1'
           memory: 128M
+
+  api-gateway:
+    container_name: api-gateway
+    image: api-gateway
+    build:
+      dockerfile: Microservices.Api.Gateway/Dockerfile
+      context: . 
+    depends_on:
+        - commandservice
+        - platformservice
+    deploy:
+        resources:
+            limits:
+                cpus: '0.5'
+                memory: 512M
+            reservations:
+                cpus: '0.25'
+                memory: 256M
 
   otel-collector:
     image: otel/opentelemetry-collector-contrib:latest
