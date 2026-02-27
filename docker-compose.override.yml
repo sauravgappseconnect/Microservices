@@ -7,6 +7,7 @@ services:
       - AllowedOrigins=http://localhost:3000
       - ServiceBus__QueueName=PlatformEvent
       - DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2UNENCRYPTEDSUPPORT=true
+      - TelemetryUrl=http://otel-collector:4317
     ports:
       - "5279:8080"
     volumes:

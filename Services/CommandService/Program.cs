@@ -4,6 +4,11 @@ using CommandService.HostedServices;
 using CommandService.Services;
 using Microservices.Common.Services;
 using Microsoft.EntityFrameworkCore;
+using OpenTelemetry.Exporter;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 namespace CommandService;
 
@@ -24,11 +29,13 @@ public class Program
         });
         builder.Services.AddHostedService<MessageProcessor>();
         builder.Services.AddSingleton<IMessageReceiver, ServiceBusMessageReceiver>();
-        builder.Services.AddCors(options => {
+        builder.Services.AddCors(options =>
+        {
             var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
             if (allowedOrigins != null && allowedOrigins.Any())
             {
-                options.AddDefaultPolicy(policy => {
+                options.AddDefaultPolicy(policy =>
+                {
                     policy.WithOrigins(allowedOrigins)
                         .AllowCredentials()
                           .AllowAnyMethod()
@@ -36,6 +43,53 @@ public class Program
                 });
             }
         });
+
+        var telemetryUrl = builder.Configuration.GetSection("TelemetryUrl").Value;
+        if (!string.IsNullOrWhiteSpace(telemetryUrl))
+        {
+            builder.Services.AddOpenTelemetry()
+                .ConfigureResource(options =>
+                {
+                    options.AddService("commandservice");
+                })
+                .WithTracing(options =>
+                {
+                    options.AddAspNetCoreInstrumentation()
+                    .AddConsoleExporter()
+                    .AddHttpClientInstrumentation()
+                    .AddConsoleExporter()
+                    .AddOtlpExporter(exp =>
+                    {
+                        exp.Endpoint = new Uri(telemetryUrl);
+                        exp.Protocol = OtlpExportProtocol.Grpc;
+                    });
+                })
+                .WithMetrics(m =>
+                {
+                    m.AddAspNetCoreInstrumentation()
+                    .AddRuntimeInstrumentation()
+                    .AddProcessInstrumentation()
+                    .AddOtlpExporter(options =>
+                    {
+                        options.Endpoint = new Uri(telemetryUrl);
+                        options.Protocol = OtlpExportProtocol.Grpc;
+                    });
+                });
+
+            builder.Logging.AddOpenTelemetry(options =>
+            {
+                options.IncludeFormattedMessage = true;
+                options.IncludeScopes = true;
+                options.ParseStateValues = true;
+                options.SetResourceBuilder(ResourceBuilder.CreateDefault()
+                    .AddService("commandservice"));
+                options.AddOtlpExporter(otlpOptions =>
+                {
+                    otlpOptions.Endpoint = new Uri(telemetryUrl);
+                    otlpOptions.Protocol = OtlpExportProtocol.Grpc;
+                });
+            });
+        }
 
         var app = builder.Build();
 

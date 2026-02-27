@@ -43,7 +43,7 @@ public class Program
         });
 
         var telemetryUrl = builder.Configuration.GetSection("TelemetryUrl").Value;
-        if(!string.IsNullOrWhiteSpace(telemetryUrl))
+        if (!string.IsNullOrWhiteSpace(telemetryUrl))
         {
             builder.Services.AddOpenTelemetry()
                     .ConfigureResource(resource =>
@@ -51,19 +51,20 @@ public class Program
                         resource.AddService("platformservice");
                     })
                     .WithTracing(tracing => tracing
-                .AddAspNetCoreInstrumentation()// Automatically create spans for incoming HTTP requests (ASP.NET Core middleware)
-                .AddHttpClientInstrumentation()         // Automatically create spans for outgoing HTTP calls (HttpClient)
-                .AddConsoleExporter()
-                .AddOtlpExporter(options =>        // Export spans to OpenTelemetry Collector
-                {
-                    options.Endpoint = new Uri(telemetryUrl);
-                    options.Protocol = OtlpExportProtocol.Grpc;
-                    // Endpoint of the collector inside Docker network
-                    // Using default protocol = gRPC
-                    // If needed, we could explicitly set:
-                    // options.Protocol = OtlpExportProtocol.Grpc;
-                }))
-                    .WithMetrics(m => {
+                    .AddAspNetCoreInstrumentation()// Automatically create spans for incoming HTTP requests (ASP.NET Core middleware)
+                    .AddHttpClientInstrumentation()         // Automatically create spans for outgoing HTTP calls (HttpClient)
+                    .AddConsoleExporter()
+                    .AddOtlpExporter(options =>        // Export spans to OpenTelemetry Collector
+                    {
+                        options.Endpoint = new Uri(telemetryUrl);
+                        options.Protocol = OtlpExportProtocol.Grpc;
+                        // Endpoint of the collector inside Docker network
+                        // Using default protocol = gRPC
+                        // If needed, we could explicitly set:
+                        // options.Protocol = OtlpExportProtocol.Grpc;
+                    }))
+                    .WithMetrics(m =>
+                    {
                         m.AddAspNetCoreInstrumentation()
                         .AddRuntimeInstrumentation()
                         .AddProcessInstrumentation()
