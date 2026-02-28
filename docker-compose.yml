@@ -27,7 +27,7 @@ services:
       dockerfile: Services/CommandService/Dockerfile
     depends_on:
       - sql2
-      - platformservice
+      - otel-collector
     deploy:
         resources:
             limits:
