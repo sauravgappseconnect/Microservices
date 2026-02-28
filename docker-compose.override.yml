@@ -31,6 +31,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
       - TelemetryUrl=http://otel-collector:4317
-      - AllowedOrigins=http://localhost:3000
+      - AllowedOrigins__0=http://localhost:3000
     ports:
         - "5291:8080"
