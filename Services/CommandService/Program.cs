@@ -29,20 +29,6 @@ public class Program
         });
         builder.Services.AddHostedService<MessageProcessor>();
         builder.Services.AddSingleton<IMessageReceiver, ServiceBusMessageReceiver>();
-        builder.Services.AddCors(options =>
-        {
-            var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
-            if (allowedOrigins != null && allowedOrigins.Any())
-            {
-                options.AddDefaultPolicy(policy =>
-                {
-                    policy.WithOrigins(allowedOrigins)
-                        .AllowCredentials()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader();
-                });
-            }
-        });
 
         var telemetryUrl = builder.Configuration.GetSection("TelemetryUrl").Value;
         if (!string.IsNullOrWhiteSpace(telemetryUrl))

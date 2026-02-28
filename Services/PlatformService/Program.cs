@@ -27,20 +27,6 @@ public class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("db"));
         });
         builder.Services.AddSingleton<IMessageSender, ServiceBusMessageSender>();
-        builder.Services.AddCors(options =>
-        {
-            var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
-            if (allowedOrigins != null && allowedOrigins.Any())
-            {
-                options.AddDefaultPolicy(policy =>
-                {
-                    policy.WithOrigins(allowedOrigins)
-                        .AllowCredentials()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader();
-                });
-            }
-        });
 
         var telemetryUrl = builder.Configuration.GetSection("TelemetryUrl").Value;
         if (!string.IsNullOrWhiteSpace(telemetryUrl))

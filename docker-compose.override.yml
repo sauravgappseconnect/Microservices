@@ -4,7 +4,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__db=Server=sql2,1433;Database=commandservice;User Id=sa;Password=@Bcd.1234;TrustServerCertificate=True
-      - AllowedOrigins=http://localhost:3000
       - ServiceBus__QueueName=PlatformEvent
       - DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2UNENCRYPTEDSUPPORT=true
       - TelemetryUrl=http://otel-collector:4317
@@ -19,7 +18,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__db=Server=sql2,1433;Database=platformservice;User Id=sa;Password=@Bcd.1234;TrustServerCertificate=True
-      - AllowedOrigins=http://localhost:3000
       - ServiceBus__QueueName=PlatformEvent 
       - TelemetryUrl=http://otel-collector:4317
     ports:
@@ -33,5 +31,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
       - TelemetryUrl=http://otel-collector:4317
+      - AllowedOrigins=http://localhost:3000
     ports:
         - "5291:8080"

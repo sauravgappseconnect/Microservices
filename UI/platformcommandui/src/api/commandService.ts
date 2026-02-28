@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { type CommandResponseSchema, type PlatformResponseSchema } from "../types/commandService";
 
-const commandServiceUrl = import.meta.env.VITE_COMMAND_SERVICE_URL;
+const commandServiceUrl = import.meta.env.VITE_API_GATEWAY_URL;
 
 const requestInstance = axios.create({
-    baseURL: `${commandServiceUrl}/api`,
+    baseURL: `${commandServiceUrl}/command/api`,
     timeout: 5000,
 });
 

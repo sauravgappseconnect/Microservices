@@ -13,6 +13,20 @@ namespace Microservices.Api.Gateway
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddCors(options =>
+            {
+                var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+                if (allowedOrigins != null && allowedOrigins.Any())
+                {
+                    options.AddDefaultPolicy(policy =>
+                    {
+                        policy.WithOrigins(allowedOrigins)
+                            .AllowCredentials()
+                              .AllowAnyMethod()
+                              .AllowAnyHeader();
+                    });
+                }
+            });
             builder.Services.AddReverseProxy()
                 .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
@@ -62,8 +76,9 @@ namespace Microservices.Api.Gateway
 
             // Configure the HTTP request pipeline.
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
+            app.UseCors();
             app.MapReverseProxy();
 
             app.Run();
