@@ -4,7 +4,7 @@
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "AllowedOrigins": "http://localhost:3000"
+        "TelemetryUrl": "http://localhost:4317"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5291"

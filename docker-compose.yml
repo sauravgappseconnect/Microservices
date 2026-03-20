@@ -153,7 +153,7 @@ services:
     container_name: loki
     ports:
         - "3100:3100"
-    command: >
+    command:
         -config.file=/etc/loki/local-config.yaml
         -config.expand-env=true
     volumes:

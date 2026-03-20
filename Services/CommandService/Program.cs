@@ -41,6 +41,7 @@ public class Program
                 .WithTracing(options =>
                 {
                     options.AddAspNetCoreInstrumentation()
+                    .AddSource("servicebusmessagereceiver")
                     .AddConsoleExporter()
                     .AddHttpClientInstrumentation()
                     .AddConsoleExporter()

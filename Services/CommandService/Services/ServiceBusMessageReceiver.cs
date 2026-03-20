@@ -1,4 +1,5 @@
-﻿using Azure.Messaging.ServiceBus;
+﻿
+using Azure.Messaging.ServiceBus;
 using CommandService.Data;
 using CommandService.Models;
 using Microservices.Common.Models;
@@ -11,6 +12,7 @@ namespace CommandService.Services
 {
     public class ServiceBusMessageReceiver : IMessageReceiver
     {
+        private static readonly ActivitySource ActivityConfig = new ActivitySource("servicebusmessagereceiver");
 
         // The Service Bus client types are safe to cache and use as a singleton for the lifetime
         // of the application, which is best practice when messages are being published or read
@@ -52,31 +54,43 @@ namespace CommandService.Services
         // handle received messages
         async Task MessageHandler(ProcessMessageEventArgs args)
         {
-            string body = args.Message.Body.ToString();
-            var platform = JsonSerializer.Deserialize<PlatformMessageModel>(body);
-            this._logger.LogInformation("Platform information received at CommandService. Message : {}", body);
-            if (platform != null)
+            args.Message.ApplicationProperties.TryGetValue("trace-id", out var producerTraceId);
+            args.Message.ApplicationProperties.TryGetValue("span-id", out var producerSpanId);
+
+            var producerActivityContext = new ActivityContext(ActivityTraceId.CreateFromString(producerTraceId?.ToString()),
+   ActivitySpanId.CreateFromString(producerSpanId?.ToString()),
+   ActivityTraceFlags.Recorded);
+
+            using (var currentActivity = ActivityConfig.StartActivity("Consume Message", ActivityKind.Consumer,
+               producerActivityContext
+            ))
             {
-                var existingPlatform = await _commandServiceContext.Platforms.FirstOrDefaultAsync(p => p.Id == platform.Id);
-                if (existingPlatform != null)
+                string body = args.Message.Body.ToString();
+                var platform = JsonSerializer.Deserialize<PlatformMessageModel>(body);
+                this._logger.LogInformation("Platform information received. TraceId: {TraceId}, Message: {Message}", producerTraceId, body);
+                if (platform != null)
                 {
-                    existingPlatform.Name = platform.Name;
-                    existingPlatform.Publisher = platform.Publisher;
-                    _commandServiceContext.Platforms.Update(existingPlatform);
-                }
-                else
-                {
-                    _commandServiceContext.Platforms.Add(new Platform
+                    var existingPlatform = await _commandServiceContext.Platforms.FirstOrDefaultAsync(p => p.Id == platform.Id);
+                    if (existingPlatform != null)
                     {
-                        Id = platform.Id,
-                        Name = platform.Name,
-                        Publisher = platform.Publisher
-                    });
+                        existingPlatform.Name = platform.Name;
+                        existingPlatform.Publisher = platform.Publisher;
+                        _commandServiceContext.Platforms.Update(existingPlatform);
+                    }
+                    else
+                    {
+                        _commandServiceContext.Platforms.Add(new Platform
+                        {
+                            Id = platform.Id,
+                            Name = platform.Name,
+                            Publisher = platform.Publisher
+                        });
+                    }
+                    await _commandServiceContext.SaveChangesAsync();
                 }
-                await _commandServiceContext.SaveChangesAsync();
+                // complete the message. message is deleted from the queue. 
+                await args.CompleteMessageAsync(args.Message);
             }
-            // complete the message. message is deleted from the queue. 
-            await args.CompleteMessageAsync(args.Message);
         }
 
         // handle any errors when receiving messages

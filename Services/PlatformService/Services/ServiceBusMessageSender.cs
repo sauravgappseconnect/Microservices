@@ -1,5 +1,6 @@
 ﻿using Azure.Messaging.ServiceBus;
 using Microservices.Common.Services;
+using System.Diagnostics;
 
 namespace PlatformService.Services
 {
@@ -18,7 +19,10 @@ namespace PlatformService.Services
         //one sender per message type? N0.
         //Create ServiceBusSender once per queue
         private ServiceBusSender _sender;
-        public ServiceBusMessageSender(IConfiguration configuration)
+
+        private ILogger<ServiceBusMessageSender> _logger;
+
+        public ServiceBusMessageSender(IConfiguration configuration, ILogger<ServiceBusMessageSender> logger)
         {
             var connectionString = configuration.GetSection("ServiceBus:ConnectionString")?.Value;
             var queueName = configuration.GetSection("ServiceBus:QueueName")?.Value;
@@ -37,11 +41,15 @@ namespace PlatformService.Services
             var clientOptions = new ServiceBusClientOptions();
             _client = new ServiceBusClient(connectionString, clientOptions);
             _sender = _client.CreateSender(queueName);
+            _logger = logger;
         }
 
         public async Task SendMessageAsync(string message)
         {
-            await _sender.SendMessageAsync(new ServiceBusMessage(message));
+            var azureMessage = new ServiceBusMessage(message);
+            azureMessage.ApplicationProperties.TryAdd("trace-id", Activity.Current?.TraceId.ToString());
+            azureMessage.ApplicationProperties.TryAdd("span-id", Activity.Current?.SpanId.ToString());
+            await _sender.SendMessageAsync(azureMessage);
         }
     }
 }

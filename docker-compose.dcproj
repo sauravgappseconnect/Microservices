@@ -15,5 +15,6 @@
     <None Include="loki-config.yaml" />
     <None Include="otel-collector-config.yaml" />
     <None Include="prometheus.yml" />
+    <None Include="tempo.yaml" />
   </ItemGroup>
 </Project>

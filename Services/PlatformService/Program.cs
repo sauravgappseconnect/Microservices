@@ -48,7 +48,8 @@ public class Program
                         // Using default protocol = gRPC
                         // If needed, we could explicitly set:
                         // options.Protocol = OtlpExportProtocol.Grpc;
-                    }))
+                    })
+                    )
                     .WithMetrics(m =>
                     {
                         m.AddAspNetCoreInstrumentation()
@@ -60,6 +61,7 @@ public class Program
                             options.Protocol = OtlpExportProtocol.Grpc;
                         });
                     });
+
             builder.Logging.AddOpenTelemetry(options =>
             {
                 options.IncludeFormattedMessage = true;

@@ -3,7 +3,8 @@
     "http": {
       "commandName": "Project",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "TelemetryUrl": "http://localhost:4317"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5136"
