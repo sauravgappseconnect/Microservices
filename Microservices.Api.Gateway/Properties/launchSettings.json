@@ -4,7 +4,20 @@
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "TelemetryUrl": "http://localhost:4317"
+        "TelemetryUrl": "http://localhost:4317",
+        "AllowedOrigins__0": "http://localhost:3000",
+
+        "ReverseProxy__Routes__route1__ClusterId": "platformservice",
+        "ReverseProxy__Routes__route1__Match__Path": "platform/{**catch-all}",
+        "ReverseProxy__Routes__route1__Transforms__0__PathPattern": "{**catch-all}",
+
+        "ReverseProxy__Routes__route2__ClusterId": "commandservice",
+        "ReverseProxy__Routes__route2__Match__Path": "command/{**catch-all}",
+        "ReverseProxy__Routes__route2__Transforms__0__PathPattern": "{**catch-all}",
+
+        "ReverseProxy__Clusters__platformservice__Destinations__destination1__Address": "http://localhost:5136",
+
+        "ReverseProxy__Clusters__commandservice__Destinations__destination1__Address": "http://localhost:5279"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5291"
