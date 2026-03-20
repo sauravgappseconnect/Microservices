@@ -3,6 +3,8 @@ using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using System.Diagnostics;
+using Yarp.ReverseProxy.Transforms;
 
 namespace Microservices.Api.Gateway
 {
@@ -28,7 +30,15 @@ namespace Microservices.Api.Gateway
                 }
             });
             builder.Services.AddReverseProxy()
-                .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+                .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"))
+                .AddTransforms(builderContext => {
+                    builderContext.AddResponseTransform(context =>
+                    {
+                        var traceId = Activity.Current?.TraceId.ToString();
+                        context.HttpContext.Response.Headers["request-id"] = !string.IsNullOrEmpty(traceId) ? traceId : "no-trace";
+                        return ValueTask.CompletedTask;
+                    });
+                });
 
             var telemetryUrl = builder.Configuration.GetSection("TelemetryUrl").Value;
             if (!string.IsNullOrWhiteSpace(telemetryUrl))
